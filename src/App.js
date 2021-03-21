@@ -14,6 +14,22 @@ class App extends React.Component {
       currentUser: null,
     };
   }
+
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    // onAuthStateChanged takes a function as a parameter. The parameter of that function is the state of the user on auth or on our application
+    // This connection is always open until the component is unmounted
+    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      this.setState({ currentUser: user });
+      console.log(user);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth(); // closes the subscription
+  }
+
   render() {
     return (
       <div>
