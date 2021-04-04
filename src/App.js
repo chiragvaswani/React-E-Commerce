@@ -22,7 +22,24 @@ class App extends React.Component {
     // This connection is always open until the component is unmounted
     // It establishes a connection between the application anf Firebase
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      createUserProfileDocument(userAuth);
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        // Listen to the userRef for the changes in the data. But, we also get the first state of the data which in this case is "snapShot"
+        userRef.onSnapshot((snapShot) => {
+          this.setState(
+            {
+              currentUser: {
+                id: snapShot.id, // Getting the id from the snapshot
+                ...snapShot.data(), // Getting the data from the snapshot
+              },
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+        });
+      } else
+        this.setState({ currentUser: userAuth }, () => console.log(this.state)); // Setting the current user to null in the state if the user logs out
     });
   }
 
