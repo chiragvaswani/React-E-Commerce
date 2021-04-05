@@ -7,7 +7,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link to="/" className="logo-container">
       <Logo className="logo" />
@@ -30,14 +30,16 @@ const Header = ({ currentUser }) => (
       )}
       <CartIcon />
     </div>
-    <CartDropdown />
+    {hidden ? null : <CartDropdown />}
   </div>
 );
 
 // The name is conventional
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  // Advanced destructuring
   // state passed here is the root reducer
-  currentUser: state.user.currentUser,
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
