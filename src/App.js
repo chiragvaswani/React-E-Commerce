@@ -1,23 +1,20 @@
 import React from "react";
 import "./App.css";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser: null,
-    };
-  }
-
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     // onAuthStateChanged takes a function as a parameter. The parameter of that function is the state of the user on auth or on our application
     // This connection is always open until the component is unmounted
     // It establishes a connection between the application anf Firebase
@@ -26,20 +23,12 @@ class App extends React.Component {
         const userRef = await createUserProfileDocument(userAuth);
         // Listen to the userRef for the changes in the data. But, we also get the first state of the data which in this case is "snapShot"
         userRef.onSnapshot((snapShot) => {
-          this.setState(
-            {
-              currentUser: {
-                id: snapShot.id, // Getting the id from the snapshot
-                ...snapShot.data(), // Getting the data from the snapshot
-              },
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
+          setCurrentUser({
+            id: snapShot.id, // Getting the id from the snapshot
+            ...snapShot.data(), // Getting the data from the snapshot
+          });
         });
-      } else
-        this.setState({ currentUser: userAuth }, () => console.log(this.state)); // Setting the current user to null in the state if the user logs out
+      } else setCurrentUser(userAuth); // Setting the current user to null in the state if the user logs out
     });
   }
 
@@ -61,4 +50,9 @@ class App extends React.Component {
   }
 }
 
-export default App;
+// dispatch is a way for redux to know that whatever action we're passing to it is an action object that it'll pass to every reducer
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
