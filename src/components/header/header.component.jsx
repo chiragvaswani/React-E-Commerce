@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
 import "./header.styles.scss";
@@ -29,4 +30,10 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+// The name is conventional
+const mapStateToProps = (state) => ({
+  // state passed here is the root reducer
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
