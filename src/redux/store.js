@@ -4,7 +4,10 @@ import { persistStore } from "redux-persist"; // allows our browser to cache the
 
 import rootReducer from "./root-reducer";
 
-const middlewares = [logger];
+const middlewares = [];
+
+// Use the logger only when the application is run locally
+if (process.env.NODE_ENV === "development") middlewares.push(logger);
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 export const persistor = persistStore(store);
