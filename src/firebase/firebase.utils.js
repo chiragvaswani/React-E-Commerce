@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 // We can access firestore / auth by using the firebase we imported above
 import "firebase/firestore"; // think of this as file paths
 import "firebase/auth";
+import collectionItemComponent from "../components/collection-item/collection-item.component";
 
 const config = {
   apiKey: "AIzaSyDWWPA-SMEZHJd0hjlwUxxJrJOKeF6lrPw",
@@ -37,6 +38,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+};
+
+export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log("Collection Reference", collectionRef);
 };
 
 firebase.initializeApp(config); // Initialise the application with the above configuration
