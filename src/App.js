@@ -11,19 +11,14 @@ import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import Header from "./components/header/header.component";
 
-import {
-  auth,
-  createUserProfileDocument,
-  addCollectionAndDocuments,
-} from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
-import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    const { setCurrentUser } = this.props;
 
     // onAuthStateChanged takes a function as a parameter. The parameter of that function is the state of the user on auth or on our application
     // This connection is always open until the component is unmounted
@@ -39,13 +34,6 @@ class App extends React.Component {
           });
         });
       } else setCurrentUser(userAuth); // Setting the current user to null in the state if the user logs out
-      addCollectionAndDocuments(
-        "collections",
-        collectionsArray.map(({ title, items }) => ({
-          title,
-          items,
-        }))
-      );
     });
   }
 
@@ -80,7 +68,6 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collectionsArray: selectCollectionsForPreview,
 });
 // dispatch is a way for redux to know that whatever action we're passing to it is an action object that it'll pass to every reducer
 const mapDispatchToProps = (dispatch) => ({
