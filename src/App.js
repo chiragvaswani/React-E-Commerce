@@ -39,7 +39,13 @@ class App extends React.Component {
           });
         });
       } else setCurrentUser(userAuth); // Setting the current user to null in the state if the user logs out
-      addCollectionAndDocuments("collections", collectionsArray);
+      addCollectionAndDocuments(
+        "collections",
+        collectionsArray.map(({ title, items }) => ({
+          title,
+          items,
+        }))
+      );
     });
   }
 
