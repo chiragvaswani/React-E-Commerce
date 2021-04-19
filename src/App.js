@@ -36,7 +36,7 @@ class App extends React.Component {
           });
         } else setCurrentUser(userAuth); // Setting the current user to null in the state if the user logs out
       },
-      () => console.log(error)
+      (error) => console.log(error)
     );
   }
 
