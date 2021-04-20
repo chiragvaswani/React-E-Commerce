@@ -32,7 +32,7 @@ class ShopPage extends React.Component {
           path={`${match.path}`}
           render={(props) => (
             <CollectionsOverviewWithSpinner
-              isLoading={!isCollectionsLoaded} // when collections are loaded, don't show the spinner
+              isLoading={isCollectionFetching} // when collections are loaded, don't show the spinner
               {...props}
             />
           )}
