@@ -5,7 +5,6 @@ import CollectionsOverviewContainer from "../../components/collections-overview/
 import CollectionPageContainer from "../collection/collection.container";
 
 import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
-
 class ShopPage extends React.Component {
   componentDidMount() {
     const { fetchCollectionsStartAsync } = this.props;
