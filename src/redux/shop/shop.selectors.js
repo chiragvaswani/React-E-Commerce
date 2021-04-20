@@ -32,7 +32,7 @@ export const selectIsCollectionFetching = createSelector(
 );
 
 // !! converts a falsy value to false and a truthy value to true
-export const isCollectionsLoaded = createSelector(
+export const selectIsCollectionsLoaded = createSelector(
   [selectShop],
   (shop) => !!shop.collections
 );
