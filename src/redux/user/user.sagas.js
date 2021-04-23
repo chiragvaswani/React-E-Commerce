@@ -7,12 +7,18 @@ import {
   googleProvider,
   createUserProfileDocument,
 } from "../../firebase/firebase.utils";
+import { googleSignInSuccess } from "./user.actions";
 
 // We're not using the function to do signInWithPopup from firebase.utils because we need the value that is returned when signInWithPopup is executed
 export function* signInWithGoogle() {
   try {
-    const userRef = yield auth.signInWithPopup(googleProvider);
-    console.log(userRef);
+    const { user } = yield auth.signInWithPopup(googleProvider);
+    const userRef = yield call(createUserProfileDocument, user);
+    const userSnapshot = yield userRef.get();
+    // Dispatch the success action
+    yield put(
+      googleSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+    );
   } catch (error) {
     console.log(error.message);
   }
