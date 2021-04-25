@@ -11,4 +11,8 @@ The following reducers are merged in the root reducer which forms the global sto
 
 These reducers are also accompanied with selecters that are used to get items out of the store in individual components using mapStateToProps method
 
-For handling asynchronous requests, redux-thunk middleware proved helpful initially as it accepts functions as actions. 
+For handling asynchronous requests, used redux-thunk initially to get the shop data from firestore. Next, used redux-saga to handle the same. The following sagas handle the asynchronous requests in the application - 
+1. Fetch Collections: Fetches the data from Firestore and dispatches actions depending upon the state of the asynchronous call
+2. Sign In: Listens for email sign in or google sign in and dispatches actions that represent the state of the sign in process
+
+
