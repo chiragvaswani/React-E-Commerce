@@ -8,6 +8,7 @@ The following reducers are merged in the root reducer which forms the global sto
 2. Directory reducer
 3. Shop reducer
 4. User reducer
+
 These reducers are also accompanied with selecters that are used to get items out of the store in individual components using mapStateToProps method
 
 For handling asynchronous requests, redux-thunk middleware proved helpful initially as it accepts functions as actions. 
