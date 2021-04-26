@@ -76,6 +76,15 @@ firebase.initializeApp(config); // Initialise the application with the above con
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsibscribe = auth.onAuthStateChanged((userAuth) => {
+      unsibscribe(); // unsubscribe as soon as we're done checking for the user
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" }); // We want to always trigger the goolge pop up whenever we use google auth provider for authentication and sign in
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
