@@ -60,7 +60,6 @@ export function* signOut() {
 }
 
 export function* signUp({ payload: { displayName, email, password } }) {
-  console.log("Signing up!");
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     yield createUserProfileDocument(user, { displayName });
