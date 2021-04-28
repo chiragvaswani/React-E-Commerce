@@ -59,9 +59,12 @@ export function* signOut() {
   }
 }
 
-export function* signUp() {
+export function* signUp({ payload: { displayName, email, password } }) {
+  console.log("Signing up!");
   try {
-    yield put(signUpSuccess());
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    yield createUserProfileDocument(user, { displayName });
+    yield getSnapshotFromUserAuth(user);
   } catch (error) {
     yield put(signUpFailure(error));
   }
@@ -103,5 +106,6 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutStart),
+    call(onSignUpStart),
   ]);
 }
