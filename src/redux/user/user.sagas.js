@@ -73,7 +73,7 @@ export function* signUp({ payload: { displayName, email, password } }) {
 }
 
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
-  yield call(getSnapshotFromUserAuth(user, additionalData));
+  yield getSnapshotFromUserAuth(user, additionalData);
 }
 
 export function* onGoogleSignInStart() {
