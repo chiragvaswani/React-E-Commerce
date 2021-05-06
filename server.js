@@ -26,6 +26,17 @@ app.post("/payment", (req, res) => {
     source: req.body.token.id,
     amount: req.body.amount,
     currency: "usd",
+    shipping: {
+      name: "Jenny Rosen",
+      address: {
+        line1: "510 Townsend St",
+        postal_code: "98140",
+        city: "San Francisco",
+        state: "CA",
+        country: "US",
+      },
+    },
+    description: req.body.description,
   };
   stripe.charges.create(body, (stripeError, stripeRes) => {
     if (stripeError) res.status(500).send({ error: stripeError });
