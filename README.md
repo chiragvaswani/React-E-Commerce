@@ -9,4 +9,5 @@ This repository represents an e-commerce web application built using React and i
   <li>Sign In and Sign Out with persistence</li>
   <li>Cart with buttons to add and remove items</li>
   <li>Checkout option with payment method</li>
+  <li>Payment processing using express server</li>
 </ul>
