@@ -4,9 +4,9 @@ This repository represents an e-commerce web application built using React and i
 
 ## Features 🚀
 <ul>
-  <li>Product Categories</li>
+  <li>Product categories</li>
   <li>Individual product card with an add button</li>
-  <li>Sign In and Sign Out with persistence</li>
+  <li>Sign in and sign out with persistence</li>
   <li>Cart with buttons to add and remove items</li>
   <li>Checkout option with payment method</li>
   <li>Payment processing using express server</li>
