@@ -1,4 +1,4 @@
-# React-E-commerece 
+# E Commerce web application using React and its ecosystem
 
 This repository represents an e-commerce web application built using React and it's ecosystem.<br>
 
